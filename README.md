@@ -16,7 +16,7 @@ from wp_honeypot import urls as wp_honeypot_urls
 
 urlpatterns = [
 	# ...
-	url(r"", include(wp_honeypot_urls)),`
+	url(r"", include(wp_honeypot_urls)),
 ]
 ```
 
