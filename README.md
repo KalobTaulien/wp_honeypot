@@ -10,10 +10,12 @@ All attempts to log in will result in a 10gb download file. Bots want to be mali
 2. Add `wp_honeypot` to your `INSTALLED_APPS`
 3. `python manage.py migrate wp_honeypot`
 4. Add the urls to your `urls.py`
-* `from wp_honeypot import urls as wp_honeypot_urls`
-* ```
+
+```python
+from wp_honeypot import urls as wp_honeypot_urls
+
 urlpatterns = [
-	...
+	# ...
 	url(r"", include(wp_honeypot_urls)),`
 ]
 ```
