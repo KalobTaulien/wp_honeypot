@@ -21,8 +21,8 @@ urlpatterns = [
 ```
 
 # Todos
-[ ] Breaks with Django Fingerprinting.
-[ ] Add support for custom file download url
-[ ] Log bot headers 
-[ ] Create function to compile a list of bot headers to submit to third party services, nginx lists, apache lists, etc.
-[ ] Add emailing. Email site admins.
+- [ ] Breaks with Django ManifestStaticFilesStorage
+- [ ] Add support for custom file download url
+- [ ] Log bot headers 
+- [ ] Create function to compile a list of bot headers to submit to third party services, nginx lists, apache lists, etc.
+- [ ] Add emailing. Email site admins.
