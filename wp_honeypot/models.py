@@ -25,8 +25,8 @@ class WPHoneypotLog(TimeStampedModel, models.Model):
     class Meta:
         """App labels."""
 
-        verbose_name = u'Login Attempts'
-        verbose_name_plural = u'Login Attempts'
+        verbose_name = u"Login Attempts"
+        verbose_name_plural = u"Login Attempts"
 
 
 class WPHoneypotLogin(TemplateView):
@@ -47,7 +47,9 @@ class WPHoneypotLogin(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         """Set headers. Redirect to a download file if POST method."""
         response = super().dispatch(request, *args, **kwargs)
-        response["Date"] = datetime.datetime.now(datetime.timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+        response["Date"] = datetime.datetime.now(datetime.timezone.utc).strftime(
+            "%a, %d %b %Y %H:%M:%S GMT"
+        )
         response["Content-Type"] = "text/html; charset=UTF-8"
         response["Server"] = "Apache/2.4.18 (Ubuntu)"
         response["CF-RAY"] = "47b74f333af1bcc8-SEA"
@@ -65,8 +67,28 @@ class WPHoneypotLogin(TemplateView):
             # If email address was provided, log it.
             if "log" in request.POST:
                 # Log the email address.
-                log_entry = WPHoneypotLog(email=request.POST.get('log'))
+                log_entry = WPHoneypotLog(email=request.POST.get("log"))
                 log_entry.save()
             # Always redirect to 10gb download ;) ¯\_(ツ)_/¯
             return redirect("http://speedtest-ny.turnkeyinternet.net/10000mb.bin")
         return response
+
+
+class WpHoneypotRedirect(TemplateView):
+    """A generic redirect view. Bot lands here and gets a 10gb download file."""
+
+    template_name = ""
+
+    def dispatch(self, request, *args, **kwargs):
+        """Set headers. Redirect to a download file if POST method."""
+        response = super().dispatch(request, *args, **kwargs)
+        response["Date"] = datetime.datetime.now(datetime.timezone.utc).strftime(
+            "%a, %d %b %Y %H:%M:%S GMT"
+        )
+        response["Content-Type"] = "text/html; charset=UTF-8"
+        response["Server"] = "Apache/2.4.18 (Ubuntu)"
+        response["CF-RAY"] = "47b74f333af1bcc8-SEA"
+        response["Set-Cookie"] = "wordpress_cookie=WP+Cookie+check; path=/;"
+        response["X-Frame-Options"] = "SAMEORIGIN"
+        response["Vary"] = "Accept-Encoding,User-Agent"
+        return redirect("http://speedtest-ny.turnkeyinternet.net/10000mb.bin")
